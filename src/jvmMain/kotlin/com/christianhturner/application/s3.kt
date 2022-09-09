@@ -1,7 +1,7 @@
 package com.christianhturner.application
 
 import aws.sdk.kotlin.runtime.auth.credentials.*
-import com.christianhturner.plugins.awsS3Plugin
+import com.christianhturner.application.Plugin.*
 import io.ktor.server.application.*
 
 import aws.sdk.kotlin.runtime.auth.credentials.ProfileCredentialsProvider
@@ -21,8 +21,15 @@ import com.christianhturner.plugins.AWSs3
 import io.github.cdimascio.dotenv.dotenv
 
 fun Application.configureS3() {
-    install(awsS3Plugin) {
-    }
-    fun buildClient: Application
-    }
-
+    install(awsS3Plugin)
+    val dotenv = dotenv()
+    val accessKey = dotenv["AWS_ACCESS_KEY_ID"]
+    val secretKey = dotenv["AWS_SECRET_ACCESS_KEY"]
+    val region = dotenv["AWS_REGION"]
+    val bucketName = dotenv["AWS_BUCKET_NAME"]
+    val s3 = AWSs3(accessKey, secretKey, region, bucketName)
+    install(s3)
+}
+class s3Client : AwsS3Configuration {
+    override val accessKey: String = dotenv()["AWS_ACCESS"]
+}
