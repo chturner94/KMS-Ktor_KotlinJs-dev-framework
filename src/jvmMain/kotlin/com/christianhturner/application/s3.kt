@@ -21,15 +21,17 @@ import com.christianhturner.plugins.AWSs3
 import io.github.cdimascio.dotenv.dotenv
 
 fun Application.configureS3() {
-    install(awsS3Plugin)
+    install(AwsS3Plugin)
     val dotenv = dotenv()
     val accessKey = dotenv["AWS_ACCESS_KEY_ID"]
     val secretKey = dotenv["AWS_SECRET_ACCESS_KEY"]
     val region = dotenv["AWS_REGION"]
-    val bucketName = dotenv["AWS_BUCKET_NAME"]
-    val s3 = AWSs3(accessKey, secretKey, region, bucketName)
-    install(s3)
-}
-class s3Client : AwsS3Configuration {
-    override val accessKey: String = dotenv()["AWS_ACCESS"]
+
+    fun AwsS3Configuration() {
+        val accessKey: String = dotenv()["AWS_ACCESS"]
+        val secretKey: String = dotenv()["AWS_SECRET"]
+        val region: Regions = Regions.US_EAST_1
+
+        var s3Client = awsS3ClientConfig(accessKey, secretKey, region)
+    }
 }
