@@ -1,13 +1,16 @@
 package com.christianhturner.server
 
+import com.christianhturner.application.index
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.application.*
+import io.ktor.server.html.*
 import io.ktor.server.response.*
 import io.ktor.server.request.*
+import kotlinx.html.HTML
 
 
 fun Application.configureRouting() {
@@ -24,7 +27,7 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respondHtml(HttpStatusCode.OK, HTML::index)
         }
         // Static plugin. Try to access `/static/index.html`
         static("/") {

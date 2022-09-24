@@ -1,7 +1,6 @@
 package com.christianhturner.application
 
 import com.christianhturner.plugins.*
-import com.christianhturner.plugins.awsS3Plugin
 import com.christianhturner.server.configureRouting
 
 import io.ktor.server.application.*
@@ -37,21 +36,9 @@ fun Application.module() {
     configureSecurity()
     configureHTTP()
     configureMonitoring()
-//    configureTemplating()
+    configureTemplating()
     configureSerialization()
     configureRouting()
     configureS3()
 }
 
-/*fun main() {
-    embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
-        routing {
-            get("/") {
-                call.respondHtml(HttpStatusCode.OK, HTML::index)
-            }
-            static("/static") {
-                resources()
-            }
-        }
-    }.start(wait = true)
-    }*/

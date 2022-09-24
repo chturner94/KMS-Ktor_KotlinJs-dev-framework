@@ -42,7 +42,7 @@ kotlin {
             kotlin.srcDir("src/commonTest/kotlin")
             resources.srcDir("src/commonTest/resources")
             dependencies {
-                implementation(kotlin("test"))
+               implementation(kotlin("test"))
             }
         }
         val jvmMain by getting {
@@ -110,4 +110,14 @@ tasks.named<Copy>("jvmProcessResources") {
 tasks.named<JavaExec>("run") {
     dependsOn(tasks.named<Jar>("jvmJar"))
     classpath(tasks.named<Jar>("jvmJar"))
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+dependencies {
+    testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
+    implementation("io.kotest:kotest-assertions-core:5.4.2")
+    implementation("io.kotest:kotest-property:5.4.2")
+    implementation("io.kotest:kotest-framework-dataset:5.4.2")
 }

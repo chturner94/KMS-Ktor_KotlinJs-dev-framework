@@ -1,5 +1,6 @@
 package com.christianhturner.plugins
 
+import com.christianhturner.application.templates.LayoutTemplate
 import io.ktor.server.html.*
 import kotlinx.html.*
 import kotlinx.css.*
@@ -12,19 +13,8 @@ import io.ktor.server.routing.*
 fun Application.configureTemplating() {
 
 
+
     routing {
-        get("/html-dsl") {
-            call.respondHtml {
-                body {
-                    h1 { +"HTML" }
-                    ul {
-                        for (n in 1..10) {
-                            li { +"$n" }
-                        }
-                    }
-                }
-            }
-        }
         get("/styles.css") {
             call.respondCss {
                 body {
@@ -36,6 +26,21 @@ fun Application.configureTemplating() {
                 }
             }
         }
+       get("/") {
+        call.respondHtmlTemplate(LayoutTemplate()) {
+            content {
+                articleTitle {
+                    +"Ktor: Building an Application"
+                }
+                articleText {
+                    +"Ktor is a framework for creating asynchronous servers and clients in connected systems using modern technologies and languages."
+                }
+            }
+
+        }
+
+    }
+
 
         get("/html-css-dsl") {
             call.respondHtml {
